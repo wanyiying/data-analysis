@@ -15,16 +15,6 @@
 以下保留原说明及二次开发历史内容；旧版本测试数以发布验证为准。
 
 ---
-
-## 欢迎关注
-
-本项目由小马学数分开发完成
-
-- [小红书主页](https://www.xiaohongshu.com/user/profile/6535d6c9000000000d005c77)
-- [Bilibili 主页](https://space.bilibili.com/503535342)
-
-本项目遵循 [PolyForm Noncommercial License 1.0.0](LICENSE)：非商用目的可自由使用、修改与分享，未经授权不得用于商业用途。王狗不得入内！
-
 # Data Analysis Skill
 
 ## 二次开发：多源经营指标一致性审计
