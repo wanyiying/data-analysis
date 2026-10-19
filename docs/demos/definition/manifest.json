@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "inputs": {
+    "a": {
+      "path": "examples\\cross_audit\\definition\\a.csv",
+      "sha256": "526ef5521f24c05f6d079aef7c43848b645145a67f8b8425f0e6ad29683052fc",
+      "bytes": 68,
+      "rows": 2
+    },
+    "b": {
+      "path": "examples\\cross_audit\\definition\\b.csv",
+      "sha256": "526ef5521f24c05f6d079aef7c43848b645145a67f8b8425f0e6ad29683052fc",
+      "bytes": 68,
+      "rows": 2
+    }
+  },
+  "python": "3.11.5",
+  "git_revision": "e9821ed5c05dbcd29d215f55c28e64a052ef96e5",
+  "engine_sha256": {
+    "__init__.py": "3373784d87878a6157121d4379ca7cd1ac8308859e1854d3daf898e9498adaa1",
+    "alignment.py": "ad7f70092a06d62638445e25960742f8dddeb7679a6ddecae6af882a5ac07b74",
+    "comparison.py": "9bd990cc34a7043e45741662743ecb32d3adcca9ddc5c2481283b7d83f91ed38",
+    "contract.py": "af422a43a7f7772b078a3764c545ec0a728c1cb4493388db9ff4c90d51614534",
+    "diagnostics.py": "9472d32a3e2a0c44eec1a0fc47f8eb2af48ad3d2f9cefe1ce8289103a33b82e7",
+    "engine.py": "7dbcda212651a14dc3cd813aeaaf7ae1222d716f6df954a33689eee1dddc8f1d",
+    "evidence.py": "05735db7f08e32a006bd85bc56f65c745d23d9a57475d5ec5862be746b2cd92b",
+    "loader.py": "be7e46e22be257995b0330b4ac2b0d3133010cd6dadb08e47924a1c24b591b0e",
+    "matching.py": "b764498943436d3644ab89e11c3bf8535cf17c288b80bcb25a9baef25fce6031",
+    "normalization.py": "afe65cdaf2791dddcfea8c0de4f7a508ca0c43271ae3868dd0021e18e184f6e9",
+    "profiler.py": "d07382ce2b42c9b006f2a2ea03e265a25899166144158426fe9165deb582eaa0"
+  },
+  "config_sha256": "233c8ce46fa4312256f4531da1901cd9caecc89413937447ef1ab3e1d7df7dd8",
+  "dependencies": {
+    "pandas": "2.0.3",
+    "numpy": "1.26.0",
+    "openpyxl": "3.0.10"
+  },
+  "created_at": "2026-10-19T09:36:58.202302+00:00"
+}

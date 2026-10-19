@@ -1,0 +1,11 @@
+{
+  "evidence": [
+    {
+      "id": "X000",
+      "kind": "alignment",
+      "verified": true,
+      "value": "BLOCKED",
+      "execution": "success"
+    }
+  ]
+}

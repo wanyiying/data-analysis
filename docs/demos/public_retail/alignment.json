@@ -1,0 +1,19 @@
+{
+  "state": "READY_AGGREGATE",
+  "keys": [
+    "date",
+    "region"
+  ],
+  "grain_a": [
+    "id",
+    "date",
+    "region"
+  ],
+  "grain_b": [
+    "date",
+    "region"
+  ],
+  "limitations": [
+    "Agreement is limited to configured aggregate keys; differences within a group may cancel. Record-level consistency is not established."
+  ]
+}

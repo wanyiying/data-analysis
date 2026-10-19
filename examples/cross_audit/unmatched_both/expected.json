@@ -1,0 +1,8 @@
+{
+  "state": "READY_EXACT",
+  "consistency": "different",
+  "net": "-10",
+  "absolute": "30",
+  "only_a": "10",
+  "only_b": "20"
+}

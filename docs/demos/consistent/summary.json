@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "execution": "success",
+  "alignment": {
+    "state": "READY_EXACT",
+    "keys": [
+      "id"
+    ],
+    "grain_a": [
+      "id"
+    ],
+    "grain_b": [
+      "id"
+    ],
+    "limitations": []
+  },
+  "consistency": "consistent",
+  "metrics": {
+    "amount": {
+      "a_total": "30",
+      "b_total": "30",
+      "matched_difference": "0",
+      "only_a_total": "0",
+      "only_b_total": "0",
+      "net_difference": "0",
+      "absolute_difference": "0",
+      "positive_difference": "0",
+      "negative_difference": "0",
+      "mismatch_count": 0,
+      "unmatched_count": 0,
+      "identity_valid": true,
+      "within_tolerance": true,
+      "row_tolerance": "0",
+      "total_tolerance": "0"
+    }
+  },
+  "coverage": {
+    "a": {
+      "included": 2,
+      "filtered": 0,
+      "date_min": "2026-01-01",
+      "date_max": "2026-01-01"
+    },
+    "b": {
+      "included": 2,
+      "filtered": 0,
+      "date_min": "2026-01-01",
+      "date_max": "2026-01-01"
+    }
+  },
+  "diagnostics": {
+    "amount": {
+      "facts": [],
+      "root_cause": "not_established",
+      "hypotheses": [
+        {
+          "status": "not_testable",
+          "candidate": "timing_or_definition_or_processing",
+          "required_evidence": "Independent system logs, approved definitions and cutoff history."
+        }
+      ]
+    }
+  },
+  "correct_source": "not_determined",
+  "root_cause": "not_established"
+}

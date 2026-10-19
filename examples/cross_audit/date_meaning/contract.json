@@ -1,0 +1,79 @@
+{
+  "schema_version": 1,
+  "confirmed": true,
+  "mode": "exact",
+  "keys": [
+    "id"
+  ],
+  "metrics": [
+    "amount"
+  ],
+  "row_tolerance": "0",
+  "total_tolerance": "0",
+  "sources": {
+    "a": {
+      "fields": {
+        "id": "id",
+        "date": "date",
+        "region": "region",
+        "amount": "amount"
+      },
+      "grain": [
+        "id"
+      ],
+      "date": {
+        "field": "date",
+        "format": "%Y-%m-%d",
+        "meaning": "order_date"
+      },
+      "scope": {
+        "start": "2026-01-01",
+        "end": "2026-01-31",
+        "population": "all_test_orders",
+        "cutoff": "2026-02-01T00:00:00+08:00",
+        "filters": {}
+      },
+      "metrics": {
+        "amount": {
+          "definition": "signed transaction amount including returns",
+          "aggregation": "sum",
+          "unit": "yuan",
+          "currency": "CNY",
+          "multiplier": "1"
+        }
+      }
+    },
+    "b": {
+      "fields": {
+        "id": "id",
+        "date": "date",
+        "region": "region",
+        "amount": "amount"
+      },
+      "grain": [
+        "id"
+      ],
+      "date": {
+        "field": "date",
+        "format": "%Y-%m-%d",
+        "meaning": "posting_date"
+      },
+      "scope": {
+        "start": "2026-01-01",
+        "end": "2026-01-31",
+        "population": "all_test_orders",
+        "cutoff": "2026-02-01T00:00:00+08:00",
+        "filters": {}
+      },
+      "metrics": {
+        "amount": {
+          "definition": "signed transaction amount including returns",
+          "aggregation": "sum",
+          "unit": "yuan",
+          "currency": "CNY",
+          "multiplier": "1"
+        }
+      }
+    }
+  }
+}

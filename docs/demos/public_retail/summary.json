@@ -1,0 +1,72 @@
+{
+  "schema_version": 1,
+  "execution": "success",
+  "alignment": {
+    "state": "READY_AGGREGATE",
+    "keys": [
+      "date",
+      "region"
+    ],
+    "grain_a": [
+      "id",
+      "date",
+      "region"
+    ],
+    "grain_b": [
+      "date",
+      "region"
+    ],
+    "limitations": [
+      "Agreement is limited to configured aggregate keys; differences within a group may cancel. Record-level consistency is not established."
+    ]
+  },
+  "consistency": "different",
+  "metrics": {
+    "amount": {
+      "a_total": "33083.61",
+      "b_total": "33090.86",
+      "matched_difference": "-7.25",
+      "only_a_total": "0",
+      "only_b_total": "0",
+      "net_difference": "-7.25",
+      "absolute_difference": "7.25",
+      "positive_difference": "0",
+      "negative_difference": "-7.25",
+      "mismatch_count": 1,
+      "unmatched_count": 0,
+      "identity_valid": true,
+      "within_tolerance": false,
+      "row_tolerance": "0",
+      "total_tolerance": "0"
+    }
+  },
+  "coverage": {
+    "a": {
+      "included": 2000,
+      "filtered": 0,
+      "date_min": "2009-12-01",
+      "date_max": "2009-12-01"
+    },
+    "b": {
+      "included": 7,
+      "filtered": 0,
+      "date_min": "2009-12-01",
+      "date_max": "2009-12-01"
+    }
+  },
+  "diagnostics": {
+    "amount": {
+      "facts": [],
+      "root_cause": "not_established",
+      "hypotheses": [
+        {
+          "status": "not_testable",
+          "candidate": "timing_or_definition_or_processing",
+          "required_evidence": "Independent system logs, approved definitions and cutoff history."
+        }
+      ]
+    }
+  },
+  "correct_source": "not_determined",
+  "root_cause": "not_established"
+}

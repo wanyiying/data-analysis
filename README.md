@@ -1,3 +1,21 @@
+# 设计多元经营指标一致性审计 Skill
+
+展示仓库：[wanyiying/data-analysis](https://github.com/wanyiying/data-analysis) · [简历项目描述](docs/resume.md)
+
+基于 [小马学数分 data-analysis](https://github.com/xiaomaxueshufen/data-analysis) 的二次开发求职展示项目。上游基线：`e9821ed5c05dbcd29d215f55c28e64a052ef96e5`。原作者提供单源分析、报告渲染和角色规范；本次增量集中于双源经营指标对账、可比性门禁与对抗回归。
+
+**定位：受限本地演示 MVP。** 尚未完成真实独立双系统验收、从原始输入独立复算、不可篡改证据链或生产规模验证。公开零售案例由同一公开数据派生为模拟双源；不代表企业部署、财务审计认证或业务收益。历史角色 JSON 不能认证真实独立 Agent 执行。
+
+- 可检查的功能：CSV/XLSX 合同校验、日期与唯一键阻断、显式聚合、Decimal 差异计算、未匹配与抵消分析、离线 HTML 及输入哈希。
+- 原项目 74 项回归；新增跨源与审计测试 81 项。历史审计记录 155 项通过；本次发布副本复测见 [发布验证](docs/release-validation.md)。
+- [复现与环境](docs/reproduce.md) · [贡献边界](ATTRIBUTION.md) · [审计报告](docs/independent-audit.md) · [发布说明](docs/public-release-notes.md)
+
+原 LICENSE 与 Required Notice 原文保留，许可为 PolyForm Noncommercial 1.0.0，包含非商用用途限制；不得改写为 MIT/Apache 或无条件商用授权。公开数据归属单独列于 ATTRIBUTION.md。
+
+以下保留原说明及二次开发历史内容；旧版本测试数以发布验证为准。
+
+---
+
 ## 欢迎关注
 
 本项目由小马学数分开发完成
@@ -8,6 +26,28 @@
 本项目遵循 [PolyForm Noncommercial License 1.0.0](LICENSE)：非商用目的可自由使用、修改与分享，未经授权不得用于商业用途。王狗不得入内！
 
 # Data Analysis Skill
+
+## 二次开发：多源经营指标一致性审计
+
+在原项目基础上新增独立双源 CSV/XLSX CLI：确认指标/范围合同、判断可比性、唯一键与粒度验证、安全聚合匹配、Decimal 金额与完整恒等式、双侧未匹配和抵消分析、证据血缘与六段 HTML。原单源算子与全部原分析方法保留。
+
+```powershell
+python -m pip install -r requirements-audit-dev.txt
+python scripts/generate_cross_audit_cases.py
+python scripts/run_cross_audit_demos.py
+```
+
+每次输出独立运行目录，路径见 `outputs/cross-audit-demos/index.json`，打开其中 report.html。CLI 默认报告为 degraded，真实四角色和结论验证完成前不升级正式发布。业务阻断也交付 HTML。测试与 UTF-8 设置见 [测试说明](docs/testing.md)。
+
+[架构图](docs/architecture.md) · [需求映射](docs/requirements.md) · [接口与状态码](docs/functional-spec.md) · [风险](docs/risk-register.md) · [Demo](examples/cross_audit/README.md) · [学习指南](docs/learning-guide.md) · [原仓库基线](docs/upstream-baseline.md)
+
+直接查看 [正常报告](docs/demos/consistent/report.html)、[差异报告](docs/demos/value_mismatch/report.html)、[阻断报告](docs/demos/definition/report.html) 和 [公开样本报告](docs/demos/public_retail/report.html)。完整交付记录见 [final-delivery](docs/final-delivery.md)。
+
+贡献边界：原作者小马学数分提供模型主导分析、单源算子、四角色规范、真实性验证及 HTML 渲染；本次新增 scripts/reconcile、跨源 CLI、导出明细算术复核、合成与公开数据演示、测试及集成文档。原作者版权及 PolyForm Noncommercial 许可保留，本衍生项目不宣称拥有原作者能力。公开数据另按其 CC BY 4.0 标注归属。
+
+V1 不判断哪个来源正确、不无证据确定根因、不自动修复、不支持复杂多对多结算、隐式会计口径/汇率转换、比率或去重指标。公开 Demo 是同一 UCI 数据派生模拟双源，没有真实企业部署或收益提升声明。
+
+独立审计与本轮实测见 [independent-audit](docs/independent-audit.md)。V1 只接受业务已确认的日历日期；含时间或时区的时间戳须先在有留痕的预处理步骤中按业务时区转换，不会自动截日。exact 模式同键日期不同会阻断；aggregate 的一致仅限指定分组，组内差异可能抵消。工件校验不等同于从原始输入独立重建对账，也不认证本地 Agent JSON 的真实性。下文“74 项”是原项目历史基线，当前执行结果以独立审计 JUnit 为准。
 
 这是一个多行业数据分析skill。用户上传 Excel 或 CSV 并提出问题后，模型自主识别决策意图、选择分析视角与方法组合、编写或调用计算、并撰写离线 HTML 报告。skill 只约束真实性边界，不固定视觉模板。确定性脚本仅作为可选的单点复核探针。
 

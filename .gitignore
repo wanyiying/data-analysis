@@ -6,3 +6,21 @@ outputs/
 .coverage
 .coverage.*
 coverage.xml
+.audit-test-tmp/
+
+# Local development and private inputs
+.idea/
+.vscode/
+.venv/
+venv/
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+day1_outputs/
+day2_outputs/
+day3_outputs/
+private-data/
+raw-data/
+*.zip

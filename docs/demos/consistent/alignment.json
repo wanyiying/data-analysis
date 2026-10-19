@@ -1,0 +1,13 @@
+{
+  "state": "READY_EXACT",
+  "keys": [
+    "id"
+  ],
+  "grain_a": [
+    "id"
+  ],
+  "grain_b": [
+    "id"
+  ],
+  "limitations": []
+}

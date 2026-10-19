@@ -1,5 +1,7 @@
 # 可选验证算子目录
 
+跨源扩展：`python scripts/da_cross_reconcile.py --source-a A.csv --source-b B.xlsx --config contract.json --output-root outputs/cross-audit`。独立双源入口，合同与状态码见 [cross-source-audit](methods/cross-source-audit.md) 和 docs/functional-spec.md。输出十进制字符串及单独数学检查，原 da_verify 只负责结论证据；不改动以下单源算子。
+
 这些算子是**可选的单点复核工具**，不是分析流水线。模型可以现场编写一次性代码完成全部分析，也可以在需要交叉验证某个关键数字时调用其中某个算子。没有任何算子是必经路径。
 
 各脚本入口：

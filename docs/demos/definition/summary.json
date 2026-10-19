@@ -1,0 +1,13 @@
+{
+  "schema_version": 1,
+  "execution": "success",
+  "alignment": {
+    "state": "BLOCKED"
+  },
+  "consistency": "not_assessed",
+  "errors": [
+    "metric_semantics_mismatch"
+  ],
+  "root_cause": "not_established",
+  "correct_source": "not_determined"
+}

@@ -1,0 +1,83 @@
+{
+  "schema_version": 1,
+  "confirmed": true,
+  "mode": "aggregate",
+  "keys": [
+    "date",
+    "region"
+  ],
+  "metrics": [
+    "amount"
+  ],
+  "row_tolerance": "0",
+  "total_tolerance": "0",
+  "sources": {
+    "a": {
+      "fields": {
+        "id": "id",
+        "date": "date",
+        "region": "region",
+        "amount": "amount"
+      },
+      "grain": [
+        "id",
+        "date",
+        "region"
+      ],
+      "date": {
+        "field": "date",
+        "format": "%Y-%m-%d",
+        "meaning": "invoice_calendar_day"
+      },
+      "scope": {
+        "start": "2009-12-01",
+        "end": "2009-12-01",
+        "population": "first_2000_source_rows_sheet_0",
+        "cutoff": "2012-01-01T00:00:00+00:00",
+        "filters": {}
+      },
+      "metrics": {
+        "amount": {
+          "definition": "Quantity times Price signed transaction value; not accounting revenue",
+          "aggregation": "sum",
+          "unit": "pound",
+          "currency": "GBP",
+          "multiplier": "1"
+        }
+      }
+    },
+    "b": {
+      "fields": {
+        "id": "id",
+        "date": "date",
+        "region": "region",
+        "amount": "amount"
+      },
+      "grain": [
+        "date",
+        "region"
+      ],
+      "date": {
+        "field": "date",
+        "format": "%Y-%m-%d",
+        "meaning": "invoice_calendar_day"
+      },
+      "scope": {
+        "start": "2009-12-01",
+        "end": "2009-12-01",
+        "population": "first_2000_source_rows_sheet_0",
+        "cutoff": "2012-01-01T00:00:00+00:00",
+        "filters": {}
+      },
+      "metrics": {
+        "amount": {
+          "definition": "Quantity times Price signed transaction value; not accounting revenue",
+          "aggregation": "sum",
+          "unit": "pound",
+          "currency": "GBP",
+          "multiplier": "1"
+        }
+      }
+    }
+  }
+}

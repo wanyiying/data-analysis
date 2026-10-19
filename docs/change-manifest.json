@@ -1,0 +1,1114 @@
+{
+  "branch": "feature/multi-source-kpi-audit",
+  "baseline_commit": "e9821ed5c05dbcd29d215f55c28e64a052ef96e5",
+  "count": 219,
+  "modified_existing": 6,
+  "new": 213,
+  "files": [
+    {
+      "path": ".gitignore",
+      "status": "modified",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "README.md",
+      "status": "modified",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "SKILL.md",
+      "status": "modified",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/agent-validation.md",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/architecture.md",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/change-manifest.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/data-plan.md",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/README.md",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/agent-review.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/agents/execution.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/agents/falsifier.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/agents/locator.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/agents/mechanism.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/agents/reviewer.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/alignment.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/checks.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/claim-verification.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/claims.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/contract.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/details.csv",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/errors.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/evidence-for-verify.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/evidence.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/finalization-record.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/independent-verification.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/manifest.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/preliminary-report.html",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/profile.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/report.html",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/report_spec.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/reviewed-report-spec.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/summary.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/agent-reviewed/verification.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/consistent/agent-review.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/consistent/alignment.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/consistent/checks.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/consistent/contract.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/consistent/details.csv",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/consistent/errors.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/consistent/evidence.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/consistent/independent-verification.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/consistent/manifest.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/consistent/profile.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/consistent/report.html",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/consistent/report_spec.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/consistent/summary.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/consistent/verification.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/definition/agent-review.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/definition/alignment.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/definition/checks.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/definition/contract.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/definition/details.csv",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/definition/errors.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/definition/evidence.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/definition/independent-verification.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/definition/manifest.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/definition/profile.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/definition/report.html",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/definition/report_spec.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/definition/summary.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/definition/verification.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/index.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/public_retail/agent-review.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/public_retail/alignment.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/public_retail/checks.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/public_retail/contract.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/public_retail/details.csv",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/public_retail/errors.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/public_retail/evidence.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/public_retail/independent-verification.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/public_retail/manifest.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/public_retail/profile.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/public_retail/report.html",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/public_retail/report_spec.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/public_retail/summary.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/public_retail/verification.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/value_mismatch/agent-review.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/value_mismatch/alignment.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/value_mismatch/checks.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/value_mismatch/contract.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/value_mismatch/details.csv",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/value_mismatch/errors.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/value_mismatch/evidence.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/value_mismatch/independent-verification.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/value_mismatch/manifest.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/value_mismatch/profile.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/value_mismatch/report.html",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/value_mismatch/report_spec.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/value_mismatch/summary.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/demos/value_mismatch/verification.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/design-decisions.md",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/final-delivery.md",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/functional-spec.md",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/independent-review.md",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/learning-guide.md",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/progress.md",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/requirements.md",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/risk-register.md",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/test-plan.md",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/test-results.xml",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/testing.md",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/upstream-baseline.md",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "docs/validation-summary.json",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "examples/cross_audit/README.md",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/aggregate/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/aggregate/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/aggregate/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/aggregate/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/confirmation/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/confirmation/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/confirmation/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/confirmation/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/consistent/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/consistent/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/consistent/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/consistent/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/coverage/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/coverage/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/coverage/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/coverage/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/cumulative_tolerance/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/cumulative_tolerance/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/cumulative_tolerance/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/cumulative_tolerance/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/date_meaning/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/date_meaning/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/date_meaning/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/date_meaning/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/definition/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/definition/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/definition/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/definition/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/duplicate/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/duplicate/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/duplicate/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/duplicate/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/many_to_many/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/many_to_many/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/many_to_many/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/many_to_many/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/missing_amount/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/missing_amount/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/missing_amount/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/missing_amount/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/negative_zero/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/negative_zero/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/negative_zero/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/negative_zero/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/no_alignment/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/no_alignment/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/no_alignment/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/no_alignment/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/normalized/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/normalized/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/normalized/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/normalized/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/null_key/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/null_key/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/null_key/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/null_key/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/offset/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/offset/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/offset/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/offset/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/only_a/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/only_a/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/only_a/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/only_a/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/only_b/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/only_b/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/only_b/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/only_b/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/public_retail/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/public_retail/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/public_retail/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/public_retail/provenance.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/tolerance_boundary/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/tolerance_boundary/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/tolerance_boundary/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/tolerance_boundary/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/total/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/total/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/total/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/total/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/unit_mismatch/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/unit_mismatch/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/unit_mismatch/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/unit_mismatch/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/unmatched_both/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/unmatched_both/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/unmatched_both/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/unmatched_both/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/value_mismatch/a.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/value_mismatch/b.csv",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/value_mismatch/contract.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "examples/cross_audit/value_mismatch/expected.json",
+      "status": "new",
+      "category": "fixtures"
+    },
+    {
+      "path": "references/evidence-contract.md",
+      "status": "modified",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "references/intent-routing.md",
+      "status": "modified",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "references/methods/cross-source-audit.md",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "references/ops-catalog.md",
+      "status": "modified",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "requirements-audit-dev.txt",
+      "status": "new",
+      "category": "docs_and_integration"
+    },
+    {
+      "path": "scripts/da_cross_reconcile.py",
+      "status": "new",
+      "category": "core_or_tools"
+    },
+    {
+      "path": "scripts/finalize_cross_audit_review.py",
+      "status": "new",
+      "category": "core_or_tools"
+    },
+    {
+      "path": "scripts/generate_cross_audit_cases.py",
+      "status": "new",
+      "category": "core_or_tools"
+    },
+    {
+      "path": "scripts/prepare_public_retail_audit.py",
+      "status": "new",
+      "category": "core_or_tools"
+    },
+    {
+      "path": "scripts/reconcile/__init__.py",
+      "status": "new",
+      "category": "core_or_tools"
+    },
+    {
+      "path": "scripts/reconcile/alignment.py",
+      "status": "new",
+      "category": "core_or_tools"
+    },
+    {
+      "path": "scripts/reconcile/comparison.py",
+      "status": "new",
+      "category": "core_or_tools"
+    },
+    {
+      "path": "scripts/reconcile/contract.py",
+      "status": "new",
+      "category": "core_or_tools"
+    },
+    {
+      "path": "scripts/reconcile/diagnostics.py",
+      "status": "new",
+      "category": "core_or_tools"
+    },
+    {
+      "path": "scripts/reconcile/engine.py",
+      "status": "new",
+      "category": "core_or_tools"
+    },
+    {
+      "path": "scripts/reconcile/evidence.py",
+      "status": "new",
+      "category": "core_or_tools"
+    },
+    {
+      "path": "scripts/reconcile/loader.py",
+      "status": "new",
+      "category": "core_or_tools"
+    },
+    {
+      "path": "scripts/reconcile/matching.py",
+      "status": "new",
+      "category": "core_or_tools"
+    },
+    {
+      "path": "scripts/reconcile/normalization.py",
+      "status": "new",
+      "category": "core_or_tools"
+    },
+    {
+      "path": "scripts/reconcile/profiler.py",
+      "status": "new",
+      "category": "core_or_tools"
+    },
+    {
+      "path": "scripts/run_cross_audit_demos.py",
+      "status": "new",
+      "category": "core_or_tools"
+    },
+    {
+      "path": "scripts/verify_cross_audit_run.py",
+      "status": "new",
+      "category": "core_or_tools"
+    },
+    {
+      "path": "tests/test_cross_audit.py",
+      "status": "new",
+      "category": "tests"
+    }
+  ],
+  "excluded_preexisting_user_changes": [
+    "day1_outputs/",
+    "day2_outputs/",
+    "day3_outputs/",
+    ".idea/",
+    "examples/case_study/run/contribution_config.json",
+    "examples/case_study/run/window_table.csv"
+  ],
+  "git_commit_created": false,
+  "pushed": false
+}

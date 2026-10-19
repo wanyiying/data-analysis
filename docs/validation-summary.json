@@ -1,0 +1,33 @@
+{
+  "full_suite": {
+    "passed": 141,
+    "failed": 0,
+    "skipped": 0,
+    "seconds": 101.02,
+    "junit": "docs/test-results.xml",
+    "command": "PYTHONUTF8=1 python -m pytest -q -p no:cacheprovider --basetemp .audit-test-tmp/final3 --junitxml docs/test-results.xml"
+  },
+  "focused_encoding_check": {
+    "passed": 1,
+    "failed": 0
+  },
+  "skill_quick_validate": "pass",
+  "compileall": "pass",
+  "demo_source": "outputs/cross-audit-demos/index.json",
+  "public_rebuild_sha256_equal": [
+    "a.csv",
+    "b.csv",
+    "contract.json"
+  ],
+  "actual_native_roles": [
+    "/root/locator",
+    "/root/mechanism",
+    "/root/falsifier",
+    "/root/reviewer"
+  ],
+  "strict_claim_verify": {
+    "status": "pass",
+    "claims": 2
+  },
+  "independent_review_limitations": "Reviewer had temporary directory permission errors; independent retry interrupted by primary agent; final review limited to fixture facts."
+}

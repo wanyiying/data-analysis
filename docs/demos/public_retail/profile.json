@@ -1,0 +1,32 @@
+{
+  "a": {
+    "rows": 2000,
+    "columns": [
+      "id",
+      "date",
+      "region",
+      "amount"
+    ],
+    "missing": {
+      "id": 0,
+      "date": 0,
+      "region": 0,
+      "amount": 0
+    }
+  },
+  "b": {
+    "rows": 7,
+    "columns": [
+      "id",
+      "date",
+      "region",
+      "amount"
+    ],
+    "missing": {
+      "id": 0,
+      "date": 0,
+      "region": 0,
+      "amount": 0
+    }
+  }
+}

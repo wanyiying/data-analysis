@@ -36,6 +36,7 @@
 
 | 方向 | 读这个 |
 |---|---|
+| `cross_source_audit`（跨源报表差异、不可比口径） | `methods/cross-source-audit.md` |
 | `anomaly` | `methods/anomaly.md` |
 | `funnel` | `methods/funnel.md` |
 | `metric_system` | `methods/metric-system.md` |

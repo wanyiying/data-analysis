@@ -1,0 +1,5 @@
+{
+  "status": "pass",
+  "failures": [],
+  "scope": "Source hashes, exported detail arithmetic and summary agreement. Does not prove source business correctness or re-establish key semantics."
+}

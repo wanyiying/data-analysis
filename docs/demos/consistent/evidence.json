@@ -1,0 +1,52 @@
+{
+  "evidence": [
+    {
+      "id": "X000",
+      "kind": "alignment",
+      "verified": true,
+      "value": "READY_EXACT",
+      "execution": "success"
+    },
+    {
+      "id": "X001",
+      "kind": "cross_source_calculation",
+      "metric": "amount",
+      "verified": true,
+      "exact_values": {
+        "a_total": "30",
+        "b_total": "30",
+        "matched_difference": "0",
+        "only_a_total": "0",
+        "only_b_total": "0",
+        "net_difference": "0",
+        "absolute_difference": "0",
+        "positive_difference": "0",
+        "negative_difference": "0",
+        "mismatch_count": 0,
+        "unmatched_count": 0,
+        "identity_valid": true,
+        "within_tolerance": true,
+        "row_tolerance": "0",
+        "total_tolerance": "0"
+      },
+      "values": {
+        "a_total": 30.0,
+        "b_total": 30.0,
+        "matched_difference": 0.0,
+        "only_a_total": 0.0,
+        "only_b_total": 0.0,
+        "net_difference": 0.0,
+        "absolute_difference": 0.0,
+        "positive_difference": 0.0,
+        "negative_difference": 0.0,
+        "mismatch_count": 0,
+        "unmatched_count": 0,
+        "identity_valid": true,
+        "within_tolerance": true,
+        "row_tolerance": 0.0,
+        "total_tolerance": 0.0
+      },
+      "note": "verified means arithmetic validity, not source correctness or agreement"
+    }
+  ]
+}

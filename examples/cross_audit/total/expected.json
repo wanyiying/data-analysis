@@ -1,0 +1,5 @@
+{
+  "state": "AGGREGATE_ONLY",
+  "consistency": "aggregate_consistent",
+  "net": "0"
+}

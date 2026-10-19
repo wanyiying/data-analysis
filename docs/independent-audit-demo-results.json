@@ -1,0 +1,106 @@
+[
+  {
+    "case": "consistent",
+    "command": [
+      "python",
+      "scripts\\da_cross_reconcile.py",
+      "--source-a",
+      "examples\\cross_audit\\consistent\\a.csv",
+      "--source-b",
+      "examples\\cross_audit\\consistent\\b.csv",
+      "--config",
+      "examples\\cross_audit\\consistent\\contract.json",
+      "--output-root",
+      "outputs\\cross-audit-demos"
+    ],
+    "actual_exit": 0,
+    "run": "outputs\\cross-audit-demos\\20261019T081039-f7ef35cf7b8a",
+    "execution": "success",
+    "alignment": "READY_EXACT",
+    "consistency": "consistent",
+    "exit_code": 0,
+    "independent_verification": {
+      "status": "pass",
+      "failures": [],
+      "scope": "Source hashes, exported detail arithmetic and summary agreement. Does not prove source business correctness or re-establish key semantics."
+    }
+  },
+  {
+    "case": "value_mismatch",
+    "command": [
+      "python",
+      "scripts\\da_cross_reconcile.py",
+      "--source-a",
+      "examples\\cross_audit\\value_mismatch\\a.csv",
+      "--source-b",
+      "examples\\cross_audit\\value_mismatch\\b.csv",
+      "--config",
+      "examples\\cross_audit\\value_mismatch\\contract.json",
+      "--output-root",
+      "outputs\\cross-audit-demos"
+    ],
+    "actual_exit": 1,
+    "run": "outputs\\cross-audit-demos\\20261019T081041-8aeb13dfecf9",
+    "execution": "success",
+    "alignment": "READY_EXACT",
+    "consistency": "different",
+    "exit_code": 1,
+    "independent_verification": {
+      "status": "pass",
+      "failures": [],
+      "scope": "Source hashes, exported detail arithmetic and summary agreement. Does not prove source business correctness or re-establish key semantics."
+    }
+  },
+  {
+    "case": "definition",
+    "command": [
+      "python",
+      "scripts\\da_cross_reconcile.py",
+      "--source-a",
+      "examples\\cross_audit\\definition\\a.csv",
+      "--source-b",
+      "examples\\cross_audit\\definition\\b.csv",
+      "--config",
+      "examples\\cross_audit\\definition\\contract.json",
+      "--output-root",
+      "outputs\\cross-audit-demos"
+    ],
+    "actual_exit": 3,
+    "run": "outputs\\cross-audit-demos\\20261019T081044-75e81fa38bae",
+    "execution": "success",
+    "alignment": "BLOCKED",
+    "consistency": "not_assessed",
+    "exit_code": 3,
+    "independent_verification": {
+      "status": "not_assessed",
+      "failures": [],
+      "reason": "No comparable metrics were calculated."
+    }
+  },
+  {
+    "case": "public_retail",
+    "command": [
+      "python",
+      "scripts\\da_cross_reconcile.py",
+      "--source-a",
+      "examples\\cross_audit\\public_retail\\a.csv",
+      "--source-b",
+      "examples\\cross_audit\\public_retail\\b.csv",
+      "--config",
+      "examples\\cross_audit\\public_retail\\contract.json",
+      "--output-root",
+      "outputs\\cross-audit-demos"
+    ],
+    "actual_exit": 1,
+    "run": "outputs\\cross-audit-demos\\20261019T081046-6acab9f6baf2",
+    "execution": "success",
+    "alignment": "READY_AGGREGATE",
+    "consistency": "different",
+    "exit_code": 1,
+    "independent_verification": {
+      "status": "pass",
+      "failures": [],
+      "scope": "Source hashes, exported detail arithmetic and summary agreement. Does not prove source business correctness or re-establish key semantics."
+    }
+  }
+]
