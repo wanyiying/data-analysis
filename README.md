@@ -1,209 +1,158 @@
 # 设计多元经营指标一致性审计 Skill
 
-展示仓库：[wanyiying/data-analysis](https://github.com/wanyiying/data-analysis) · [简历项目描述](docs/resume.md)
+**Multi-Source Business KPI Consistency Audit Skill**
 
-基于 [小马学数分 data-analysis](https://github.com/xiaomaxueshufen/data-analysis) 的二次开发求职展示项目。上游基线：`e9821ed5c05dbcd29d215f55c28e64a052ef96e5`。原作者提供单源分析、报告渲染和角色规范；本次增量集中于双源经营指标对账、可比性门禁与对抗回归。
+基于 [小马学数分 Data Analysis Skill](https://github.com/xiaomaxueshufen/data-analysis) 增量二次开发，面向多源经营报表中指标口径不一致、数据粒度不同、金额差异难定位的问题。当前是处理两个本地 CSV/XLSX 来源的演示 MVP。
 
-**定位：受限本地演示 MVP。** 尚未完成真实独立双系统验收、从原始输入独立复算、不可篡改证据链或生产规模验证。公开零售案例由同一公开数据派生为模拟双源；不代表企业部署、财务审计认证或业务收益。历史角色 JSON 不能认证真实独立 Agent 执行。
+**核心设计：先判断数据能不能可靠对账，再执行安全匹配、差异定位和证据审查。** 指标定义、范围或业务键不满足条件时，保留阻断结果，避免把不可比数据算成“差异结论”。
 
-- 可检查的功能：CSV/XLSX 合同校验、日期与唯一键阻断、显式聚合、Decimal 差异计算、未匹配与抵消分析、离线 HTML 及输入哈希。
-- 原项目 74 项回归；新增跨源与审计测试 81 项。历史审计记录 155 项通过；本次发布副本复测见 [发布验证](docs/release-validation.md)。
-- [复现与环境](docs/reproduce.md) · [贡献边界](ATTRIBUTION.md) · [审计报告](docs/independent-audit.md) · [发布说明](docs/public-release-notes.md)
+[查看四个 Demo](#demo-展示) · [快速运行](#快速运行) · [原项目与个人贡献](#原项目与个人贡献) · [简历项目描述](docs/resume.md)
 
-原 LICENSE 与 Required Notice 原文保留，许可为 PolyForm Noncommercial 1.0.0，包含非商用用途限制；不得改写为 MIT/Apache 或无条件商用授权。公开数据归属单独列于 ATTRIBUTION.md。
+## 业务背景与痛点
 
-以下保留原说明及二次开发历史内容；旧版本测试数以发布验证为准。
+**业务场景示例：** 运营报表与财务报表统计同一经营指标，却给出不同金额。排查前，需要确认两边是否采用相同的指标定义、日期含义、统计范围和金额单位，再检查粒度与重复键，匹配记录并分解差额。
 
----
-# Data Analysis Skill
+本项目将可明确表达的校验和计算步骤标准化：先检查可比性，再区分匹配金额差异、单侧缺失和正负抵消，为后续业务核验提供可追溯明细。该场景用于说明问题，**不代表已接入真实企业运营或财务系统**。
 
-## 二次开发：多源经营指标一致性审计
+## Demo 展示
 
-在原项目基础上新增独立双源 CSV/XLSX CLI：确认指标/范围合同、判断可比性、唯一键与粒度验证、安全聚合匹配、Decimal 金额与完整恒等式、双侧未匹配和抵消分析、证据血缘与六段 HTML。原单源算子与全部原分析方法保留。
+以下报告与结构化工件已保存在仓库中，金额差异统一按 **A − B** 计算。
+
+| 演示场景 | 已核实的主要结果 | 报告与明细 |
+|---|---|---|
+| 正常对账 | A=30，B=30，净差=0；`READY_EXACT / consistent` | [HTML](docs/demos/consistent/report.html) · [汇总](docs/demos/consistent/summary.json) |
+| 金额差异 | A=30，B=27，净差=3；业务键 `002` 的金额为 20 对 17；`different` | [HTML](docs/demos/value_mismatch/report.html) · [差异明细](docs/demos/value_mismatch/details.csv) |
+| 口径冲突 | 指标定义不一致；`BLOCKED / not_assessed`，不计算差额 | [HTML](docs/demos/definition/report.html) · [阻断结果](docs/demos/definition/summary.json) |
+| 公开零售模拟双源 | A=33,083.61，B=33,090.86 GBP；按日期/地区聚合后净差=−7.25 GBP；`READY_AGGREGATE / different` | [HTML](docs/demos/public_retail/report.html) · [汇总](docs/demos/public_retail/summary.json) |
+
+GitHub 文件页展示 HTML 源码，下载后用浏览器打开，或按下方命令在本地生成并打开报告。以上报告均保留 `degraded` 标记。
+
+公开零售案例由 **同一 UCI Online Retail II 数据集**的前 2,000 行派生出两种视图，并在 B 的 `2009-12-01 / Australia` 分组人工注入 +7.25 GBP。它验证已知差异能否被识别，**不代表真实独立双系统对账或企业事故**。抽样、注入与数据许可见 [provenance.json](examples/cross_audit/public_retail/provenance.json) 和 [ATTRIBUTION.md](ATTRIBUTION.md)。
+
+## 二次开发核心功能
+
+| 功能 | 解决的问题 |
+|---|---|
+| 指标语义合同校验 | 检查已确认的指标定义、单位、币种、加总方式及统计范围，避免同名异义 |
+| 可比性判断与业务阻断 | 定义、范围、日期含义不一致或缺少确认时，停止对应比较 |
+| 字段映射与显式聚合 | 将来源字段映射到合同字段；仅在明确的比较键上对可加总指标求和 |
+| 唯一键检查与安全匹配 | 先校验来源粒度，再按键匹配，阻断重复粒度和多对多膨胀风险 |
+| 双侧未匹配记录识别 | 分别记录 `only_in_a / only_in_b`，缺失一侧留空，不当作零金额 |
+| Decimal 金额与容差 | 保留十进制金额，分别检查逐键差异与累计总差容差 |
+| 正负抵消与恒等式核验 | 同时输出净差、正负及绝对差异，核对总差与分项是否闭合 |
+| 结构化证据与离线 HTML | 输出合同、差异明细、输入/合同/引擎哈希；复用上游渲染器生成报告 |
+| 对抗测试与回归验证 | 覆盖日期错配、时间戳截日、非法合同、工件状态篡改及审查降级处理 |
+
+对账恒等式：**A 总额 − B 总额 = 匹配记录差额 + 仅 A 存在的金额 − 仅 B 存在的金额**。净差为零也可能存在抵消；聚合模式只能说明指定分组的一致性，不能外推为逐笔一致。
+
+实现入口：[da_cross_reconcile.py](scripts/da_cross_reconcile.py)；合同、标准化、匹配与计算见 [对账引擎](scripts/reconcile/engine.py) 和 [架构说明](docs/architecture.md)。
+
+## 系统架构
+
+下图展示跨源问题的处理路径，不要求原 Skill 顺序运行全部分析算子。实线为确定性 CLI 路径；虚线为由 Skill 协调、需要实际执行并留痕的角色审查流程。
+
+```mermaid
+flowchart TD
+    Q["用户业务问题"] --> S["原 Skill：意图识别与业务合同确认"]
+    subgraph EXT["本项目新增：双源确定性对账"]
+        L["加载 CSV/XLSX 与数据画像"] --> C["合同校验：指标、范围与日期含义"]
+        C --> N["字段与日期标准化、单位倍数转换"]
+        N --> A["粒度唯一性与可比性判断"]
+        A --> M["显式聚合、安全键匹配"]
+        A -->|不满足条件| B
+        M --> D["Decimal 差异、未匹配与抵消分析"]
+        D --> E["恒等式校验与结构化证据"]
+        C -->|不满足条件| B["保留阻断状态，不计算差额"]
+        N -->|不满足条件| B
+        B --> E
+    end
+    S --> L
+    E --> H["复用原 HTML 渲染器：默认 degraded 报告"]
+    E -.-> R["原角色规范：Locator / Mechanism / Falsifier / Reviewer"]
+    R -.-> V["原结论证据验证与新增收尾门禁"]
+    V -.-> H
+```
+
+CLI 负责确定性计算与默认报告，**不会自动启动四角色 Agent**。角色审查需要由 Skill 运行环境另行协调；本地角色 JSON 与校验通过不能认证真实独立执行，也不使本项目达到生产审计标准。
+
+## 快速运行
+
+在仓库根目录执行。以下 PowerShell 步骤沿用 [复现说明](docs/reproduce.md)，增加合成案例生成命令；自带公开派生样本无需下载原始大文件，也不需要 API 密钥。
 
 ```powershell
-python -m pip install -r requirements-audit-dev.txt
-python scripts/generate_cross_audit_cases.py
-python scripts/run_cross_audit_demos.py
+python -m venv .venv
+.\.venv\Scripts\python.exe -m pip install -r requirements-audit-dev.txt
+New-Item -ItemType Directory -Path .audit-test-tmp -Force | Out-Null
+$env:PYTHONUTF8='1'
+
+# 重建合成案例；再运行三个合成 Demo 和一个公开派生样本 Demo
+.\.venv\Scripts\python.exe scripts/generate_cross_audit_cases.py
+.\.venv\Scripts\python.exe scripts/run_cross_audit_demos.py
+
+# 复现全量测试；每次使用新的 basetemp 目录名
+.\.venv\Scripts\python.exe -m pytest -q -p no:cacheprovider --basetemp .audit-test-tmp/fresh-run --junitxml outputs/local-tests.xml
 ```
 
-每次输出独立运行目录，路径见 `outputs/cross-audit-demos/index.json`，打开其中 report.html。CLI 默认报告为 degraded，真实四角色和结论验证完成前不升级正式发布。业务阻断也交付 HTML。测试与 UTF-8 设置见 [测试说明](docs/testing.md)。
+运行后查看 `outputs/cross-audit-demos/index.json`，其中列出四次运行目录；用浏览器打开各目录的 `report.html`。每次运行生成独立目录，保留历史结果。
 
-[架构图](docs/architecture.md) · [需求映射](docs/requirements.md) · [接口与状态码](docs/functional-spec.md) · [风险](docs/risk-register.md) · [Demo](examples/cross_audit/README.md) · [学习指南](docs/learning-guide.md) · [原仓库基线](docs/upstream-baseline.md)
+只运行金额差异案例，可调用实际 CLI：
 
-直接查看 [正常报告](docs/demos/consistent/report.html)、[差异报告](docs/demos/value_mismatch/report.html)、[阻断报告](docs/demos/definition/report.html) 和 [公开样本报告](docs/demos/public_retail/report.html)。完整交付记录见 [final-delivery](docs/final-delivery.md)。
-
-贡献边界：原作者小马学数分提供模型主导分析、单源算子、四角色规范、真实性验证及 HTML 渲染；本次新增 scripts/reconcile、跨源 CLI、导出明细算术复核、合成与公开数据演示、测试及集成文档。原作者版权及 PolyForm Noncommercial 许可保留，本衍生项目不宣称拥有原作者能力。公开数据另按其 CC BY 4.0 标注归属。
-
-V1 不判断哪个来源正确、不无证据确定根因、不自动修复、不支持复杂多对多结算、隐式会计口径/汇率转换、比率或去重指标。公开 Demo 是同一 UCI 数据派生模拟双源，没有真实企业部署或收益提升声明。
-
-独立审计与本轮实测见 [independent-audit](docs/independent-audit.md)。V1 只接受业务已确认的日历日期；含时间或时区的时间戳须先在有留痕的预处理步骤中按业务时区转换，不会自动截日。exact 模式同键日期不同会阻断；aggregate 的一致仅限指定分组，组内差异可能抵消。工件校验不等同于从原始输入独立重建对账，也不认证本地 Agent JSON 的真实性。下文“74 项”是原项目历史基线，当前执行结果以独立审计 JUnit 为准。
-
-这是一个多行业数据分析skill。用户上传 Excel 或 CSV 并提出问题后，模型自主识别决策意图、选择分析视角与方法组合、编写或调用计算、并撰写离线 HTML 报告。skill 只约束真实性边界，不固定视觉模板。确定性脚本仅作为可选的单点复核探针。
-
-
-## 能力
-
-- **表内对账**：读原始单元格，用表格自带的「合计 / 小计」行交叉验证每一条明细汇总；对不上就不放行，退出码可直接当流水线闸门。
-- **异动定位**：稳健基线、异常日期、趋势断点、维度定位和机制候选。
-- **漏斗分析**：阶段分母、转化率、流失量、瓶颈和可回收空间。
-- **指标体系**：北极星、结果、过程、诊断、护栏、口径和看板最小集合。
-- **AB 实验**：SRM、分流单位、效应、区间、显著性、异质性、护栏、功效/MDE 与 CUPED 方差缩减。
-- **因果推断**：识别策略、处理/对照、可比性、增量估计和关联性降级。
-- **用户分层**：动作前特征、分层规则、价值、规模、稳定性和动作映射；RFM 分位切点 + 8 段标签。
-- **贡献度与比率拆解**：组内变化、结构变化、缺口对账、正负抵消和分子分母重算。
-- **归因与触点**：多模型（last_touch / linear / time_decay / position_based / shapley / first_touch）渠道归因 + 对账 + 模型分歧度。
-- **同期群留存**：仅用成熟 cohort 计算平均曲线，左截断披露。
-- **生存与流失**：Kaplan-Meier 曲线 + log-rank 分组比较 + 删失披露。
-- **路径分析**：转移矩阵、入口/出口、自环、高频路径与终点到达率。
-- **价格弹性**：log-log 回归 + 反事实测算 + 识别策略门禁（无随机化最多 L1）。
-- **异动断点检测**：季节性调整 + CUSUM + 水平切点（断点位置是数据挑选出来的，实际显著性弱于该数值）。
-- **多重比较校正**：Bonferroni / Holm / BH-FDR；与 `da_verify.py` 的探索性结论警告联动。
-- **报告交付**：模型只写紧凑的规格 JSON，`da_report.py` 渲染单文件离线 HTML（苹果风设计系统、纯 SVG 图表、零外部请求）。
-
-## 设计原则
-
-1. 意图识别由模型完成，不用关键词硬编码替代业务判断。
-2. 关键数字必须可复算、可对账：模型可以现场编写一次性分析代码，也可以调用可选算子复核；表里有「合计 / 小计」行时，先用 `da_reconcile.py` 拿表自己的校验和交叉验证一遍。约束的是“可复核”，不是“必须用哪个脚本”。
-3. 数据质量是分析门禁。缺失、延迟、字段置空和口径切换会进入排除区。
-4. 相关不等于因果；无法验证的解释写成高置信候选或待验证假设。
-5. 复杂问题优先由 Codex 原生 subagent 机制启动 Locator、Mechanism、Falsifier、Reviewer 四个独立 agent；前三个并行派发，Reviewer 最后执行。自定义 provider 或无原生工具时自动降级为串行隔离回退，绝不伪造 subagent。
-6. 报告必须说明补充什么数据后可以回答什么当前回答不了的问题。
-7. Grill-Me 硬门禁：用户问题模糊时必须先反问再分析，反问轮不生成报告，停下等待回答；用户说“直接分析”才允许带默认假设继续。
-8. 独立角色硬门禁：涉及“为什么/原因/异动”或 L2 及以上解释时，必须完成 Locator/Mechanism/Falsifier/Reviewer 四个角色的独立工件，缺一不可发布。
-9. 执行留痕：每次运行写 `agents/execution.json`，标明 `native_subagents` 或 `serial_fallback`；原生模式必须记录四个 agent id，回退模式必须记录原因。
-10. 报告渲染与内容分离：模型写规格 JSON，`da_report.py` 负责排版、图表和主题；禁止对数值几何做动画（条形生长 / 折线 draw-in / 数字 count-up 会在截图、打印、后台标签页里冻结成错误读数），只保留不改变几何的滚动显现并带超时兜底。
-11. 渐进式披露：`SKILL.md` 常驻正文保持精简（实测 `o200k_base` 4,124 / `cl100k_base` 5,279 token，口径见「自检 · 测量口径」），并给出「哪一步读哪个文件」的加载表；`references/` 按需读取，`methods/` 与 `industries/` 明确禁止整体加载。
-
-## 工作流
-
-```
-  文件与问题
-    → 理解决策与数据边界
-    → 摸底（可选 profile 脚本，也可自己写代码）
-    → Grill-Me 反问硬门禁（模糊问题先反问，停下等回答）
-    → 语义合同与数据质量门禁
-    → 选择本次分析视角（多样性决策点）
-    → 意图路由与方法组合
-    → 模型自主分析（现场代码 + 可选算子复核）
-    → 独立角色分析（Locator/Mechanism/Falsifier/Reviewer 工件）
-    → 表内对账（da_reconcile：用合计/小计交叉验证明细）
-    → 结论分级与真实性检查（da_verify：按条目绑定 + 对账联动）
-    → 模型撰写报告规格 JSON，da_report 渲染离线 HTML（outputs/<run>/report.html）
-    → 交付前自检：文件存在 + 体积 + 六段式 + 后续建议 + limitations + 降级标注 + 无占位词
+```powershell
+.\.venv\Scripts\python.exe scripts/da_cross_reconcile.py `
+  --source-a examples/cross_audit/value_mismatch/a.csv `
+  --source-b examples/cross_audit/value_mismatch/b.csv `
+  --config examples/cross_audit/value_mismatch/contract.json `
+  --output-root outputs/manual-demo
 ```
 
-交付物恒为 `outputs/<run>/report.html`。**唯一例外是 Grill-Me 反问轮**：那一轮只输出反问与默认假设、不产出 HTML，停下等用户回答；用户回答后进入正式分析，从那一刻起「必须产出」重新生效。除此之外一切情况都必须交付 HTML——质量门禁阻断、SRM 报警、识别策略不足、`da_verify` 失败或降级路径命中时，降级报告同样以 HTML 形式交付，并在文件顶部标注 `degraded` 模式 + 已读 / 未读 / 降级原因。
+该案例预期退出码为 `1`，表示发现差异；一致为 `0`，业务阻断为 `3`，需确认合同为 `4`，输入/执行错误为 `2`。CLI 输出 JSON 中的 `run` 指向本次报告目录。
 
-运行工件保存为：
+依赖文件 [requirements-audit-dev.txt](requirements-audit-dev.txt) 锁定历史实测环境；其中 openpyxl 3.0.10 低于上游 [requirements.txt](requirements.txt) 的 >=3.1 声明。它用于复现实测，不能视为新环境或生产依赖验证。若改用上游依赖版本，应重新运行测试。
 
-```text
-outputs/<run>/
-├── 01_profile.json
-├── semantic_contract.json
-├── 03_quality.json
-├── analysis.py（模型现场编写的分析代码）
-├── agents/
-│   ├── locator.json
-│   ├── mechanism.json
-│   ├── falsifier.json
-│   ├── reviewer.json
-│   └── execution.json
-├── evidence.json
-├── reconcile.json（表内对账结果；表里有合计/小计行时生成）
-├── claims.json
-├── variation.json
-├── da_verify.json（发布前真实性检查结果）
-├── report_spec.json（模型写的报告规格；排版与图表由 da_report 渲染）
-└── report.html
-```
+## 测试与质量保障
 
-文件名只是建议，不是固定值；模型按本次分析的需要增删工件。但 `report.html` 与 `da_verify.json` 不可省略。
+**2026-10-19 的指定本地环境中，155 项测试通过，0 失败、0 错误、0 跳过。** 此数字来自已保存的发布验证，不是本次 README 修改后重新执行的测试。
 
-## 在 Codex 中安装
+| 测试来源 | 数量 |
+|---|---:|
+| 上游原项目测试 | 74 |
+| 本项目新增跨源及审计测试 | 81 |
+| 其中：独立审计期间新增回归（包含在 81 项内） | 14 |
+| 合计 | 155 |
 
-本 skill 已发布到 GitHub，仓库根目录包含 `SKILL.md`：
+实测环境：Windows、Python 3.11.5、pandas 2.0.3、numpy 1.26.0、openpyxl 3.0.10、pytest 7.4.0。测试包括固定答案、随机性质、CLI 端到端、输入防护与审计反例回归。
 
-- 仓库地址：[https://github.com/xiaomaxueshufen/data-analysis](https://github.com/xiaomaxueshufen/data-analysis)
+[发布验证记录](docs/release-validation.md) · [JUnit 记录](docs/release-tests.xml) · [独立审计与修复](docs/independent-audit.md) · [跨源测试](tests/test_cross_audit.py) · [审计回归](tests/test_independent_audit.py)
 
-### 方式一：在 Codex 中直接安装（推荐）
+当前仓库未配置 GitHub Actions 工作流；上述结果不代表在线 CI、多 Python 版本持续集成或生产规模验证。
 
-1. 打开 Codex（桌面版、CLI 或 IDE 扩展均可），新建一个会话。
-2. 让 Codex 用内置安装器安装，直接发送：
+## 原项目与个人贡献
 
-   > 请安装 data-analysis skill，仓库来源是 https://github.com/xiaomaxueshufen/data-analysis
+| 范围 | 原作者提供 | 本项目增量二次开发 |
+|---|---|---|
+| Skill 与分析方法 | 通用数据分析 Skill、意图识别、方法包与单源算子 | 新增跨源审计路由、方法说明和双源执行入口 |
+| 数据比较 | 表内合计/小计对账等单源能力 | 指标合同、可比性阻断、标准化、粒度校验与安全对齐 |
+| 金额核验 | 原有分析及证据框架 | Decimal 跨源差额、双侧未匹配、抵消与对账恒等式 |
+| 审查与报告 | 四角色审查规范、结论证据验证、HTML 渲染器 | 跨源证据适配、导出明细核验与收尾门禁集成 |
+| 样例与测试 | 原有公开案例及 74 项测试 | 合成案例、公开模拟双源样本及新增 81 项测试 |
 
-   也可以先输入 `$skill-installer`，再把上面的仓库地址交给它。
-3. 等待安装完成。Codex 通常会自动识别新 skill；如果输入 `$data-analysis` 时没有出现，请重启 Codex 或新建一个会话。
+上游功能、代码和 74 项测试不计为个人原创。开发使用 AI 辅助；个人职责应与实际参与和可解释程度一致。详见 [贡献归属](ATTRIBUTION.md)、[原仓库基线](docs/upstream-baseline.md) 和 [简历项目描述](docs/resume.md)。原项目完整功能说明请查看 [上游仓库](https://github.com/xiaomaxueshufen/data-analysis)。
 
-### 方式二：手动安装
+## 项目限制
 
-如果当前版本的内置安装器不可用，可以把仓库内容手动放到 Codex 的 user skills 目录：
+- 定位为本地演示 MVP，未完成真实独立双系统验收或生产规模验证。
+- 不自动判断哪个来源正确，不自动证明差异根因，也不自动修复业务数据。
+- 合同确认与输入提取完整性依赖业务证据；相同口径字符串不等于口径已被外部认证。
+- 工件校验尚不等于从原始输入端到端独立复算，哈希记录也不是不可篡改证据链。
+- 本地 Agent 工件无法独立认证实际角色执行。
+- 仅支持明确可加总指标；不支持复杂多对多结算、隐式会计/汇率转换。时间戳需先按业务时区显式预处理；聚合结果可能掩盖组内抵消。
 
-1. 下载或克隆仓库：`https://github.com/xiaomaxueshufen/data-analysis`
-2. 将仓库根目录（包含 `SKILL.md`、`scripts/`、`references/`）放到 Codex 的 user skills 目录下，目录名保持为 `data-analysis`。
-3. 重启 Codex 或新建会话。
+完整边界见 [独立审计报告](docs/independent-audit.md)。文档中的早期“未推送”等记录属于开发阶段历史，当前项目已公开发布，不据此改写历史结论。
 
-user skills 目录的具体位置以当前 Codex 版本为准，可参考 [OpenAI 官方 Skills 文档](https://developers.openai.com/codex/skills)。
+## 原作者归属与许可证
 
-> 注意：`outputs/`、`__pycache__/` 属于运行缓存，不要把目录中的运行结果复制进 skill。
+本项目基于 [小马学数分 / xiaomaxueshufen 的 data-analysis](https://github.com/xiaomaxueshufen/data-analysis) 增量二次开发，保留上游 Git 历史、原 LICENSE 和版权通知。
 
-### 环境依赖
+Required Notice: Copyright 小马学数分 (xiaomaxueshufen, https://github.com/xiaomaxueshufen)
 
-脚本依赖 `pandas>=2.0`、`numpy>=1.24`、`openpyxl>=3.1`。如果 Codex 提示缺少 Python 依赖，先在本地 Python 环境执行：
-
-```bash
-pip install -r requirements.txt
-```
-
-## 在 Codex 中使用
-
-安装后有两种触发方式：
-
-### 1. 显式调用
-
-在新会话中输入 `$data-analysis`（或直接提到“用 data-analysis skill”），然后上传 Excel/CSV 或给出文件路径并描述业务问题。例如：
-
-> 用 $data-analysis 分析这份电商支付数据，帮我定位主要异动。
-
-### 2. 自动触发
-
-上传或拖入 Excel/CSV 后直接提问即可，当任务匹配 skill 描述时 Codex 会自动加载本技能：
-
-- “帮我看看这个数据”
-- “这份支付成功率为什么下降，做一下漏斗和渠道拆解”
-- “对这份用户数据进行分层，并说明还需要补什么字段”
-
-分析完成后，Codex 会在运行目录 `outputs/<run>/` 中生成逐字段证据 JSON、表内对账结果（表里有合计/小计行时）和离线 HTML 报告（`report.html`），报告可直接用浏览器打开。报告遵循“结论先行、证据可回溯”的原则：数据质量问题会进入排除区，未经验证的同步关系只写成候选解释，不会冒充根因。
-
-## 目录说明
-
-- `SKILL.md`：主流程、停止条件、证据层级和报告要求；常驻正文实测 `o200k_base` 4,124 / `cl100k_base` 5,279 token（口径见「自检 · 测量口径」），内含「哪一步读哪个文件」的渐进式披露加载表。
-- `references/intent-routing.md`：由模型完成的任务路由提示词。
-- `references/clarify.md`：模糊问题的必要追问和默认假设协议。
-- `references/harness.md`：多 agent 的角色提示词、输入隔离、JSON 输出和合并规则。
-- `references/evidence-contract.md`：L0-L4 结论层级和发布门禁。
-- `references/report-design.md`：报告规格 JSON schema、主题与风格可选值、多样性维度、设计纪律与反模式。合并了原 `report-html.md` / `html-report-design.md` / `report-diversity.md`。
-- `references/methods/`：异动、漏斗、指标体系、AB、因果、分层、贡献度、比率拆解、归因、同期群留存、生存/流失、路径分析、价格弹性、断点检测、实验设计与多重比较校正方法包。
-- `references/industries/`：行业口径模板。当前包含通用、零售电商、互联网 SaaS、物流快递、自媒体/内容创作、教育培训、增长与广告投放、互金、互联网游戏、双边平台与市场、本地生活与 O2O 共 11 套；每套都按”适用信号 → 业务链路与统计对象 → KPI（定义/必要字段/禁止推断）→ 数据门禁 → 分析主题 → 行业叙事 → **常见数据陷阱** → 图表 → 降级路径”组织。
-- `scripts/`：报告渲染器（`da_report.py`：规格 JSON → 自包含离线 HTML，五套主题、四种 SVG 图表、六段式骨架由代码写死，校验证据引用 / 层级 / 图表类型 / 占位词）、表头识别、结构画像、质量门禁、表内对账（`da_reconcile.py`：读原始单元格，用合计/小计行交叉验证明细，退出码可直接当流水线闸门）、通用分析算子（17 个：`anomaly_scan`、`funnel_rates`、`contribution`、`ratio_decomp`、`ab_effect`、`segment_profile` + `attribution` / `cohort_retention` / `survival` / `path_analysis` / `rfm` / `price_elasticity` / `power_mde` / `srm_check` / `multiple_testing` / `cuped` / `changepoint_scan`）和真实性校验器（`da_verify.py` 0.7.0：数字按 `evidence_ids` 绑定到具体证据条目、对账条目联动拦截、方向与符号一致的量纲匹配、负号与千分位可解析、序号不参与溯源、L2+ 因果措辞漏填识别策略即 fail），以及所有 CLI 共用的启动自检与输入防护（`da_envcheck.py`：缺 numpy / pandas 时给出可执行的安装指引，而不是裸 traceback；`da_common.py`：统一路径校验、坏输入结构化报错、非有限数值写成 `null` 保证 JSON 合法）。
-- `scripts/da_measure.py`：把 README 里的效能数字变成可复算输出——常驻正文 token 数（按编码器分别计）、「写规格 vs 手写 HTML」的输出量差、覆盖率的复算命令口径；`--require-tiktoken` 让缺依赖变成失败。
-- `tests/`：不参与运行时的回归测试，全部使用内存合成数据；`conftest.py` 与 `.coveragerc` 让 subprocess 调用的 CLI 也计入覆盖率；运行方式和覆盖范围见下面「自检」一节。
-- `examples/`：不参与运行时的示例报告，用于展示交付形态；`examples/case_study/` 是一份基于公开数据集（UCI Online Retail II，CC BY 4.0）的真实脱敏案例，含数据构建脚本、全部运行工件、可复算的结论表和 `da_verify` 门禁结果。
-- `.github/workflows/ci.yml`：CI——74 项回归测试（Python 3.10 / 3.12 / 3.13）、案例工件真实性与对账门禁、示例报告与案例报告的逐字节渲染比对、覆盖率统计、token 口径复算。
-- `CHANGELOG.md`：变更记录；交付契约、门禁和效能数字的每次改动都记在这里。
-
-## 自检
-
-仓库自带回归测试，全部用内存合成数据，不需要示例数据文件：
-
-```bash
-pip install -r requirements.txt pytest pytest-cov tiktoken   # 这三个都只用于自检，不是 skill 的运行依赖
-python -m pytest tests/ -q               # 5 个模块，74 项
-python tests/test_report.py              # 每个文件也能单独执行，打印逐项 PASS/FAIL
-```
-
-覆盖范围：算子性质（`test_operators`：含 `anomaly_scan` 的 `warmup_days` / `min_baseline_n` 门禁与旧算子 `limitations`）、
-表内对账（`test_reconcile`）、报告渲染与规格校验（`test_report`：含示例报告与案例报告的逐字节可复现）、
-真实性门禁（`test_verify`：含 `--require-agent-manifest` 缺 `--agents-dir` 必须报错）、
-CLI 健壮性（`test_cli_robustness`：坏输入不抛栈、缺依赖给安装指引、17 个算子 × 8 种退化输入只允许「正常返回」或 `DataError`）。
+采用 [PolyForm Noncommercial License 1.0.0](LICENSE)，保留非商业用途限制；本项目不另行授予覆盖上游的商业授权。公开数据来自 UCI Online Retail II，按 CC BY 4.0 标注来源、抽样与修改，详见 [ATTRIBUTION.md](ATTRIBUTION.md)。
